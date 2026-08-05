@@ -40,7 +40,7 @@ body {
 /* Visible keyboard focus for accessibility */
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid #e5e7eb;
+  outline: 2px solid #22d3ee;
   outline-offset: 3px;
   border-radius: 4px;
 }

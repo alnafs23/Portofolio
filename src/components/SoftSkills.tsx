@@ -16,7 +16,7 @@ export default function SoftSkills() {
   return (
     <section id="softskills" className="py-24 max-w-5xl mx-auto px-4">
       <div className="text-center mb-16 space-y-2">
-        <h2 className="text-3xl font-bold">Soft Skill</h2>
+        <h2 className="text-3xl font-bold">Soft Skills</h2>
         <p className="text-slate-400">
           Kemampuan interpersonal yang mendukung kerja analitis sehari-hari.
         </p>
@@ -33,10 +33,10 @@ export default function SoftSkills() {
               viewport={{ once: true }}
               whileHover={{ y: -6 }}
               transition={{ duration: 0.5, delay: index * 0.08 }}
-              className="bg-slate-900 border border-slate-800 rounded-2xl p-5 hover:border-slate-400/40 hover:shadow-lg hover:shadow-white/5 transition-colors"
+              className="bg-slate-900 border border-slate-800 rounded-2xl p-5 hover:border-emerald-500/40 hover:shadow-lg hover:shadow-emerald-500/5 transition-colors"
             >
-              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center mb-3">
-                <Icon size={18} className="text-slate-300" />
+              <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center mb-3">
+                <Icon size={18} className="text-emerald-400" />
               </div>
               <h3 className="font-semibold text-slate-100 mb-1.5">
                 {skill.title}

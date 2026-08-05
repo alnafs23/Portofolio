@@ -12,15 +12,14 @@ export default function Certifications() {
 
   return (
     <section id="certifications" className="py-24 max-w-5xl mx-auto px-4">
-      <div className="text-center mb-12 space-y-2">
+      <div className="text-center mb-16 space-y-2">
         <h2 className="text-3xl font-bold">Sertifikasi</h2>
         <p className="text-slate-400">
-          {certificationsData.length} kursus & pelatihan yang telah
-          diselesaikan — klik untuk melihat sertifikat.
+          Kursus dan pelatihan yang telah saya selesaikan.
         </p>
       </div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {certificationsData.map((cert, index) => (
           <motion.button
             key={cert.id}
@@ -28,25 +27,21 @@ export default function Certifications() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             whileHover={{ y: -6 }}
-            transition={{ duration: 0.4, delay: Math.min(index, 8) * 0.05 }}
-            onClick={() => setSelected(cert)}
-            className="text-left bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden hover:border-white/30 hover:shadow-lg hover:shadow-white/5 transition-colors group"
+            transition={{ duration: 0.5, delay: index * 0.08 }}
+            onClick={() => cert.image && setSelected(cert)}
+            className="text-left bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden hover:border-cyan-500/40 hover:shadow-lg hover:shadow-cyan-500/5 transition-colors group"
           >
-            {cert.image && (
-              <ImageSlot
-                src={cert.image}
-                alt={cert.title}
-                label="Gambar sertifikat"
-                className="w-full h-32"
-                iconSize={22}
-              />
-            )}
+            <ImageSlot
+              src={cert.image}
+              alt={cert.title}
+              className="w-full h-40"
+            />
             <div className="p-4 flex gap-3 items-start">
-              <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0 mt-0.5">
-                <Award size={15} className="text-white" />
+              <div className="w-8 h-8 rounded-full bg-cyan-500/10 flex items-center justify-center shrink-0 mt-0.5">
+                <Award size={15} className="text-cyan-400" />
               </div>
               <div className="min-w-0">
-                <h3 className="font-semibold text-slate-100 text-sm leading-snug group-hover:text-white transition-colors">
+                <h3 className="font-semibold text-slate-100 text-sm leading-snug group-hover:text-cyan-400 transition-colors">
                   {cert.title}
                 </h3>
                 <p className="text-xs text-slate-500 mt-1">
@@ -82,14 +77,11 @@ export default function Certifications() {
               >
                 <X size={18} />
               </button>
-              {selected.image ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={selected.image}
-                  alt={selected.title}
-                  className="w-full max-h-[70vh] object-contain bg-slate-950"
-                />
-              ) : null}
+              <ImageSlot
+                src={selected.image}
+                alt={selected.title}
+                className="w-full h-72"
+              />
               <div className="p-5">
                 <h3 className="font-semibold text-slate-100">
                   {selected.title}

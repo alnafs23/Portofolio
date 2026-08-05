@@ -33,7 +33,7 @@ export default function Experience() {
             onClick={() => setActiveFilter(f)}
             className={`px-4 py-2 rounded-full text-sm font-medium border transition-colors ${
               activeFilter === f
-                ? "bg-white text-slate-950 border-white"
+                ? "bg-cyan-500 text-slate-950 border-cyan-500"
                 : "bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-700"
             }`}
           >
@@ -58,31 +58,27 @@ export default function Experience() {
             >
               <span
                 className={`absolute -left-8 top-1 w-6 h-6 rounded-full bg-slate-900 border-2 flex items-center justify-center ${
-                  isOrg ? "border-white" : "border-slate-500"
+                  isOrg ? "border-cyan-400" : "border-emerald-400"
                 }`}
               >
                 <Icon
                   size={12}
-                  className={isOrg ? "text-white" : "text-slate-300"}
+                  className={isOrg ? "text-cyan-400" : "text-emerald-400"}
                 />
               </span>
-              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 hover:border-white/30 hover:shadow-lg hover:shadow-white/5 transition-all flex flex-col sm:flex-row gap-4">
-                {exp.image && (
-                  <ImageSlot
-                    src={exp.image}
-                    alt={`Dokumentasi ${exp.role}`}
-                    label={isOrg ? "Foto kegiatan" : "Foto/sertifikat event"}
-                    className="w-full sm:w-28 h-28 rounded-xl shrink-0"
-                    iconSize={20}
-                  />
-                )}
+              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 hover:border-cyan-500/40 hover:shadow-lg hover:shadow-cyan-500/5 transition-all flex flex-col sm:flex-row gap-4">
+                <ImageSlot
+                  src={exp.image}
+                  alt={`Dokumentasi ${exp.role}`}
+                  className="w-full sm:w-28 h-28 rounded-xl shrink-0"
+                />
                 <div className="flex-1 min-w-0">
                   <div className="flex flex-wrap items-center gap-2 mb-1">
                     <span
                       className={`text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full ${
                         isOrg
-                          ? "bg-white/10 text-white"
-                          : "bg-white/10 text-slate-300"
+                          ? "bg-cyan-500/10 text-cyan-400"
+                          : "bg-emerald-500/10 text-emerald-400"
                       }`}
                     >
                       {exp.type}
