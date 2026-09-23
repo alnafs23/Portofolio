@@ -2,14 +2,8 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { personalInfo } from "@/data/portfolioData";
-import {
-  Github,
-  Linkedin,
-  Mail,
-  MessageCircle,
-  Send,
-  Bot,
-} from "lucide-react";
+import { Github, Linkedin, Mail, MessageCircle, Send, Bot } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const chatLinks = [
   {
@@ -41,15 +35,16 @@ const chatLinks = [
 export default function Contact() {
   const [year, setYear] = useState<number | null>(null);
   useEffect(() => setYear(new Date().getFullYear()), []);
+  const { t } = useLanguage();
 
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
   const handleSend = () => {
     const subject = encodeURIComponent(
-      `Halo Alina — pesan dari ${form.name || "portofolio"}`
+      `Halo Alina — pesan dari ${form.name || "portofolio"}`,
     );
     const body = encodeURIComponent(
-      `Nama: ${form.name}\nEmail: ${form.email}\n\nPesan:\n${form.message}`
+      `Nama: ${form.name}\nEmail: ${form.email}\n\nPesan:\n${form.message}`,
     );
     window.location.href = `mailto:${personalInfo.email}?subject=${subject}&body=${body}`;
   };
@@ -66,11 +61,9 @@ export default function Contact() {
           viewport={{ once: true }}
           className="text-center space-y-3 mb-12"
         >
-          <h2 className="text-3xl font-bold">Mari Berkolaborasi</h2>
+          <h2 className="text-3xl font-bold">{t.contact.title}</h2>
           <p className="text-slate-400 max-w-lg mx-auto">
-            Terbuka untuk peluang magang, kolaborasi proyek, maupun diskusi
-            seputar analisis data, sistem informasi, dan business
-            intelligence.
+            {t.contact.subtitle}
           </p>
         </motion.div>
 
@@ -85,7 +78,7 @@ export default function Contact() {
           >
             <div className="flex items-center gap-2 mb-4 text-slate-300 font-semibold text-sm">
               <Bot size={16} className="text-cyan-400" />
-              Chat Room
+              {t.contact.chatRoom}
             </div>
 
             <motion.div
@@ -95,8 +88,7 @@ export default function Contact() {
               transition={{ delay: 0.1 }}
               className="bg-slate-950 border border-slate-800 rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-slate-300 max-w-[85%] mb-4"
             >
-              Halo! 👋 Terima kasih sudah mampir ke portofolio saya. Yuk
-              terhubung lewat salah satu channel di bawah ini:
+              {t.contact.chatGreeting}
             </motion.div>
 
             <div className="space-y-2 mt-auto">
@@ -139,42 +131,40 @@ export default function Contact() {
             className="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex flex-col gap-3"
           >
             <p className="text-sm font-semibold text-slate-300 mb-1">
-              Kirim Pesan Langsung
+              {t.contact.sendMessage}
             </p>
             <div>
               <label className="text-xs text-slate-500 mb-1 block">
-                Nama Lengkap
+                {t.contact.fullName}
               </label>
               <input
                 type="text"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                placeholder="Nama Anda..."
+                placeholder={t.contact.namePlaceholder}
                 className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-cyan-500/50"
               />
             </div>
             <div>
               <label className="text-xs text-slate-500 mb-1 block">
-                Email
+                {t.contact.email}
               </label>
               <input
                 type="email"
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
-                placeholder="email@anda.com"
+                placeholder={t.contact.emailPlaceholder}
                 className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-cyan-500/50"
               />
             </div>
             <div className="flex-1">
               <label className="text-xs text-slate-500 mb-1 block">
-                Pesan
+                {t.contact.message}
               </label>
               <textarea
                 value={form.message}
-                onChange={(e) =>
-                  setForm({ ...form, message: e.target.value })
-                }
-                placeholder="Tulis pesan Anda..."
+                onChange={(e) => setForm({ ...form, message: e.target.value })}
+                placeholder={t.contact.messagePlaceholder}
                 rows={4}
                 className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-cyan-500/50 resize-none"
               />
@@ -186,17 +176,16 @@ export default function Contact() {
               className="w-full flex items-center justify-center gap-2 px-5 py-2.5 bg-cyan-500 text-slate-950 font-semibold rounded-lg text-sm hover:bg-cyan-400 transition-colors"
             >
               <Send size={15} />
-              Send
+              {t.contact.send}
             </motion.button>
             <p className="text-[11px] text-slate-600 text-center">
-              Akan membuka aplikasi email default Anda.
+              {t.contact.mailNote}
             </p>
           </motion.div>
         </div>
 
         <p className="text-xs text-slate-600 pt-12 text-center font-mono">
-          &copy; {year ?? ""} {personalInfo.name}. Built with Next.js &
-          Tailwind CSS.
+          &copy; {year ?? ""} {personalInfo.name}. {t.contact.builtWith}
         </p>
       </div>
     </section>

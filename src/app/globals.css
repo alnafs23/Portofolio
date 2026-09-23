@@ -10,6 +10,29 @@ body {
   overflow-x: hidden;
 }
 
+/* Pola grid halus yang perlahan bergeser — dipakai sebagai lapisan latar
+   paling belakang di halaman utama supaya background terasa lebih "hidup". */
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(to right, rgba(148, 163, 184, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.07) 1px, transparent 1px);
+  background-size: 48px 48px;
+  animation: grid-pan 30s linear infinite;
+}
+html.light .bg-grid-pattern {
+  background-image:
+    linear-gradient(to right, rgba(15, 23, 42, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.06) 1px, transparent 1px);
+}
+@keyframes grid-pan {
+  0% {
+    background-position: 0px 0px;
+  }
+  100% {
+    background-position: 48px 96px;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
@@ -43,4 +66,77 @@ button:focus-visible {
   outline: 2px solid #22d3ee;
   outline-offset: 3px;
   border-radius: 4px;
+}
+
+/* =========================================================================
+   MODE TERANG (LIGHT MODE)
+   Situs ini awalnya didesain gelap-saja: warna slate-950/900/dst ditulis
+   langsung di className tiap komponen (tanpa prefix dark:). Supaya toggle
+   terang/gelap bisa jalan tanpa menulis ulang setiap komponen, kelas-kelas
+   warna paling umum dibalik di sini ketika elemen <html> berkelas "light".
+   ========================================================================= */
+html.light {
+  color-scheme: light;
+}
+
+html.light body {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+/* Latar belakang gelap -> terang */
+html.light .bg-slate-950,
+html.light .bg-slate-950\/90,
+html.light .bg-slate-950\/70 {
+  background-color: #f8fafc !important;
+}
+html.light .bg-slate-900,
+html.light .bg-slate-900\/95,
+html.light .bg-slate-900\/70,
+html.light .bg-slate-900\/60,
+html.light .bg-slate-900\/40 {
+  background-color: #ffffff !important;
+}
+html.light .bg-slate-800,
+html.light .bg-slate-800\/60 {
+  background-color: #e2e8f0 !important;
+}
+
+/* Border gelap -> terang */
+html.light .border-slate-800,
+html.light .border-slate-900,
+html.light .border-slate-700 {
+  border-color: #e2e8f0 !important;
+}
+
+/* Teks gelap (terang di atas latar gelap) -> gelap di atas latar terang */
+html.light .text-slate-100,
+html.light .text-slate-200 {
+  color: #0f172a !important;
+}
+html.light .text-slate-300 {
+  color: #1e293b !important;
+}
+html.light .text-slate-400 {
+  color: #475569 !important;
+}
+html.light .text-slate-500,
+html.light .text-slate-600 {
+  color: #64748b !important;
+}
+/* text-slate-900/950 aslinya dipakai di atas tombol terang (mis. bg-cyan-500) — biarkan gelap */
+
+html.light ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+html.light ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+html.light .shadow-black\/20,
+html.light .shadow-black\/40 {
+  --tw-shadow-color: rgb(15 23 42 / 0.12) !important;
 }

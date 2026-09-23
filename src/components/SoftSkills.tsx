@@ -9,17 +9,18 @@ import {
   Search,
   Sparkles,
 } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const icons = [Brain, MessageSquareText, Users, Clock, Search, Sparkles];
 
 export default function SoftSkills() {
+  const { t, pick } = useLanguage();
+
   return (
     <section id="softskills" className="py-24 max-w-5xl mx-auto px-4">
       <div className="text-center mb-16 space-y-2">
-        <h2 className="text-3xl font-bold">Soft Skills</h2>
-        <p className="text-slate-400">
-          Kemampuan interpersonal yang mendukung kerja analitis sehari-hari.
-        </p>
+        <h2 className="text-3xl font-bold">{t.softskills.title}</h2>
+        <p className="text-slate-400">{t.softskills.subtitle}</p>
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -42,7 +43,7 @@ export default function SoftSkills() {
                 {skill.title}
               </h3>
               <p className="text-sm text-slate-400 leading-relaxed">
-                {skill.desc}
+                {pick(skill.desc)}
               </p>
             </motion.div>
           );

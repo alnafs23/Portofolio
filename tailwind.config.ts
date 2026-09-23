@@ -25,9 +25,14 @@ const config: Config = {
           "33%": { transform: "translate(30px, -50px) scale(1.1)" },
           "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
         },
+        float: {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-18px)" },
+        },
       },
       animation: {
         blob: "blob 12s infinite ease-in-out",
+        float: "float 6s ease-in-out infinite",
       },
     },
   },

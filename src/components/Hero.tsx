@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { personalInfo } from "@/data/portfolioData";
 import { ArrowUpRight, Circle } from "lucide-react";
 import ImageSlot from "@/components/ImageSlot";
+import { useLanguage } from "@/context/LanguageContext";
 
 function useTypewriter(text: string, speed = 40, startDelay = 500) {
   const [displayed, setDisplayed] = useState("");
@@ -29,7 +30,8 @@ function useTypewriter(text: string, speed = 40, startDelay = 500) {
 }
 
 export default function Hero() {
-  const typedRole = useTypewriter(personalInfo.role);
+  const { t, pick } = useLanguage();
+  const typedRole = useTypewriter(pick(personalInfo.role));
   const firstName = personalInfo.name.split(" ")[0];
   const hasPhoto = Boolean(personalInfo.photoUrl);
 
@@ -54,11 +56,11 @@ export default function Hero() {
         >
           <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-full text-xs text-emerald-400 font-mono">
             <Circle size={7} className="fill-emerald-400 text-emerald-400" />
-            Open for Opportunities
+            {t.hero.openForOpportunities}
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight break-words">
-            Hi, I&apos;m{" "}
+            {t.hero.greeting}{" "}
             <span className="bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">
               {personalInfo.name}
             </span>
@@ -74,7 +76,7 @@ export default function Hero() {
               hasPhoto ? "mx-auto md:mx-0" : "mx-auto"
             }`}
           >
-            {personalInfo.aboutTagline}
+            {pick(personalInfo.aboutTagline)}
           </p>
 
           <div
@@ -91,7 +93,7 @@ export default function Hero() {
                 whileTap={{ scale: 0.95 }}
                 className="px-6 py-3 bg-slate-900 border border-slate-800 hover:border-slate-700 text-white font-semibold rounded-full"
               >
-                Download CV
+                {t.hero.downloadCV}
               </motion.a>
             )}
             <motion.a
@@ -103,7 +105,7 @@ export default function Hero() {
               whileTap={{ scale: 0.95 }}
               className="px-6 py-3 bg-cyan-500 text-slate-950 font-semibold rounded-full inline-flex items-center justify-center gap-2"
             >
-              Explore My Projects <ArrowUpRight size={18} />
+              {t.hero.exploreProjects} <ArrowUpRight size={18} />
             </motion.a>
           </div>
         </motion.div>
@@ -136,15 +138,18 @@ export default function Hero() {
                       {firstName}
                     </p>
                     <p className="text-[11px] text-emerald-400 flex items-center gap-1">
-                      <Circle size={6} className="fill-emerald-400 text-emerald-400" />
-                      Online
+                      <Circle
+                        size={6}
+                        className="fill-emerald-400 text-emerald-400"
+                      />
+                      {t.hero.online}
                     </p>
                   </div>
                   <a
                     href="#contact"
                     className="text-[11px] font-semibold px-3 py-1.5 bg-slate-950 border border-slate-800 rounded-full text-slate-300 hover:border-cyan-500/40 hover:text-cyan-400 transition-colors shrink-0"
                   >
-                    Contact Me
+                    {t.hero.contactMe}
                   </a>
                 </div>
               </div>
@@ -160,7 +165,7 @@ export default function Hero() {
         transition={{ delay: 1.5, duration: 1 }}
         className="absolute bottom-6 left-1/2 -translate-x-1/2 text-slate-600 text-xs font-mono tracking-widest"
       >
-        SCROLL
+        {t.hero.scroll}
       </motion.div>
     </section>
   );

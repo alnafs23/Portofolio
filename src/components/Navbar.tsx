@@ -1,18 +1,10 @@
 "use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Languages, Moon, Sun } from "lucide-react";
 import { personalInfo } from "@/data/portfolioData";
-
-const menuItems = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#softskills" },
-  { label: "Experience", href: "#experience" },
-  { label: "Certificates", href: "#certifications" },
-  { label: "Projects", href: "#projects" },
-  { label: "Contact", href: "#contact" },
-];
+import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "@/context/ThemeContext";
 
 const initials = personalInfo.name
   .split(" ")
@@ -23,6 +15,19 @@ const initials = personalInfo.name
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { lang, toggleLang, t } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
+
+  const menuItems = [
+    { label: t.nav.home, href: "#home" },
+    { label: t.nav.about, href: "#about" },
+    { label: t.nav.education, href: "#education" },
+    { label: t.nav.skills, href: "#softskills" },
+    { label: t.nav.experience, href: "#experience" },
+    { label: t.nav.certificates, href: "#certifications" },
+    { label: t.nav.projects, href: "#projects" },
+    { label: t.nav.contact, href: "#contact" },
+  ];
 
   const handleLinkClick = () => setIsOpen(false);
 
@@ -42,7 +47,7 @@ export default function Navbar() {
         </a>
 
         {/* Desktop menu */}
-        <div className="hidden lg:flex gap-6 items-center">
+        <div className="hidden lg:flex gap-5 items-center">
           {menuItems.map((item) => (
             <a
               key={item.href}
@@ -53,17 +58,56 @@ export default function Navbar() {
               <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-cyan-400 transition-all group-hover:w-full" />
             </a>
           ))}
+
+          <div className="flex items-center gap-1.5 pl-2 ml-1 border-l border-slate-800">
+            <button
+              onClick={toggleLang}
+              aria-label={t.welcome.langToggle}
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[11px] font-mono text-slate-400 hover:text-cyan-400 hover:bg-slate-800/60 transition-colors"
+            >
+              <Languages size={13} />
+              {lang === "id" ? "EN" : "ID"}
+            </button>
+            <button
+              onClick={toggleTheme}
+              aria-label={
+                theme === "dark" ? t.theme.switchToLight : t.theme.switchToDark
+              }
+              className="p-1.5 rounded-full text-slate-400 hover:text-cyan-400 hover:bg-slate-800/60 transition-colors"
+            >
+              {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
+            </button>
+          </div>
         </div>
 
-        {/* Mobile/tablet toggle */}
-        <button
-          onClick={() => setIsOpen((prev) => !prev)}
-          aria-label={isOpen ? "Tutup menu" : "Buka menu"}
-          aria-expanded={isOpen}
-          className="lg:hidden text-slate-300 hover:text-white transition-colors"
-        >
-          {isOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
+        {/* Mobile/tablet controls */}
+        <div className="lg:hidden flex items-center gap-1">
+          <button
+            onClick={toggleLang}
+            aria-label={t.welcome.langToggle}
+            className="flex items-center gap-1 px-2 py-1.5 rounded-full text-[11px] font-mono text-slate-300 hover:text-cyan-400 transition-colors"
+          >
+            <Languages size={14} />
+            {lang === "id" ? "EN" : "ID"}
+          </button>
+          <button
+            onClick={toggleTheme}
+            aria-label={
+              theme === "dark" ? t.theme.switchToLight : t.theme.switchToDark
+            }
+            className="p-1.5 text-slate-300 hover:text-cyan-400 transition-colors"
+          >
+            {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
+          <button
+            onClick={() => setIsOpen((prev) => !prev)}
+            aria-label={isOpen ? t.nav.closeMenu : t.nav.openMenu}
+            aria-expanded={isOpen}
+            className="text-slate-300 hover:text-white transition-colors pl-1"
+          >
+            {isOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
       </motion.nav>
 
       {/* Mobile/tablet dropdown */}

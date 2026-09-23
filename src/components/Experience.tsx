@@ -4,12 +4,20 @@ import { motion } from "framer-motion";
 import { experienceData } from "@/data/portfolioData";
 import { Briefcase, CalendarDays } from "lucide-react";
 import ImageSlot from "@/components/ImageSlot";
+import { useLanguage } from "@/context/LanguageContext";
 
-const filters = ["Semua", "Organisasi", "Event"] as const;
-type Filter = (typeof filters)[number];
+const filterValues = ["Semua", "Organisasi", "Event"] as const;
+type Filter = (typeof filterValues)[number];
 
 export default function Experience() {
   const [activeFilter, setActiveFilter] = useState<Filter>("Semua");
+  const { t, pick } = useLanguage();
+
+  const filterLabels: Record<Filter, string> = {
+    Semua: t.experience.filters.all,
+    Organisasi: t.experience.filters.org,
+    Event: t.experience.filters.event,
+  };
 
   const filtered = useMemo(() => {
     if (activeFilter === "Semua") return experienceData;
@@ -19,15 +27,12 @@ export default function Experience() {
   return (
     <section id="experience" className="py-24 max-w-4xl mx-auto px-4">
       <div className="text-center mb-10 space-y-2">
-        <h2 className="text-3xl font-bold">Organisasi & Event</h2>
-        <p className="text-slate-400">
-          Pengalaman organisasi, kepanitiaan, dan event/pelatihan yang pernah
-          saya ikuti.
-        </p>
+        <h2 className="text-3xl font-bold">{t.experience.title}</h2>
+        <p className="text-slate-400">{t.experience.subtitle}</p>
       </div>
 
       <div className="flex justify-center gap-2 mb-12 flex-wrap">
-        {filters.map((f) => (
+        {filterValues.map((f) => (
           <button
             key={f}
             onClick={() => setActiveFilter(f)}
@@ -37,7 +42,7 @@ export default function Experience() {
                 : "bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-700"
             }`}
           >
-            {f}
+            {filterLabels[f]}
           </button>
         ))}
       </div>
@@ -81,7 +86,7 @@ export default function Experience() {
                           : "bg-emerald-500/10 text-emerald-400"
                       }`}
                     >
-                      {exp.type}
+                      {filterLabels[exp.type]}
                     </span>
                     <span className="text-xs font-mono text-slate-500">
                       {exp.period}
@@ -90,7 +95,7 @@ export default function Experience() {
                   <h3 className="font-semibold text-slate-100">{exp.role}</h3>
                   <p className="text-sm text-slate-400 mb-2">{exp.org}</p>
                   <p className="text-sm text-slate-400 leading-relaxed">
-                    {exp.desc}
+                    {pick(exp.desc)}
                   </p>
                 </div>
               </div>
